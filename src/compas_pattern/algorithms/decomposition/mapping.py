@@ -1,5 +1,5 @@
 from compas.datastructures import Network
-from compas.datastructures.network.operations import network_polylines
+from compas.datastructures.network.core.operations import network_polylines
 
 from compas_pattern.cad.rhino.objects.surface import RhinoSurface
 from compas_pattern.cad.rhino.objects.curve import RhinoCurve

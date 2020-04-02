@@ -263,7 +263,7 @@ class QuadMesh(Mesh):
 
 		# split boundaries
 		all_splits = [vkey for polyedge in polyedges for vkey in polyedge]
-		for boundary in self.boundaries():
+		for boundary in self.vertices_on_boundaries():
 			splits = [vkey for vkey in boundary if vkey in all_splits]
 			new_splits = []
 

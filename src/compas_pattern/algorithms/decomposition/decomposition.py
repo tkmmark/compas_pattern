@@ -12,7 +12,7 @@ from compas.datastructures import mesh_insert_vertex_on_edge
 from compas.datastructures import mesh_substitute_vertex_in_faces
 
 from compas_pattern.datastructures.network.network import Network
-from compas.datastructures.network.operations import network_polylines
+from compas.datastructures.network.core.operations import network_polylines
 from compas.geometry import Polyline
 
 from compas.datastructures import mesh_weld
@@ -142,7 +142,7 @@ class Decomposition(Skeleton):
 
 		"""
 
-		boundaries = [bdry + bdry[0 :] for bdry in self.boundaries()]
+		boundaries = [bdry + bdry[0 :] for bdry in self.vertices_on_boundaries()]
 		splits = self.corner_vertices() + self.split_vertices()
 		split_boundaries = [split_boundary for boundary in boundaries for split_boundary in list_split(boundary, [boundary.index(split) for split in splits if split in boundary])]
 		return [[self.vertex_coordinates(vkey) for vkey in boundary] for boundary in split_boundaries]
@@ -228,7 +228,7 @@ class Decomposition(Skeleton):
 
 		all_splits = set(list(self.corner_vertices()) + list(self.split_vertices()))
 
-		for polyedge in [bdry + bdry[0 :] for bdry in self.boundaries()]:
+		for polyedge in [bdry + bdry[0 :] for bdry in self.vertices_on_boundaries()]:
 
 			splits = set([vkey for vkey in polyedge if vkey in all_splits])
 			new_splits = []
@@ -311,7 +311,7 @@ class Decomposition(Skeleton):
 		new_branches = []
 
 		singular_faces = set(self.singular_faces())
-		for boundary in self.boundaries():
+		for boundary in self.vertices_on_boundaries():
 			angles = {(u, v, w): angle_vectors(subtract_vectors(self.vertex_coordinates(v), self.vertex_coordinates(u)), subtract_vectors(self.vertex_coordinates(w), self.vertex_coordinates(v))) for u, v, w in window(boundary + boundary[: 2], n = 3)}
 			for u, v, w, x, y in list(window(boundary + boundary[: 4], n = 5)):
 
