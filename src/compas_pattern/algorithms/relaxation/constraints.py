@@ -40,7 +40,6 @@ def automated_smoothing_surface_constraints(mesh, surface):
 	-------
 	constraints : dict
 		A dictionary of mesh constraints for smoothing as vertex keys pointing to point, curve or surface objects.
-
 	"""
 
 	constraints = {}
